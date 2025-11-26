@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
-use App\DTO\SolicitudDTO;
 use App\Http\Requests\Solicitudes\StoreRequest;
 use App\Http\Requests\Solicitudes\UpdateRequest;
+use App\Http\Resources\SolicitudResource;
 use App\Models\Solicitud;
 
 class SolicitudesRepository
@@ -13,12 +13,9 @@ class SolicitudesRepository
     {
         $query = Solicitud::paginate();
 
-        $result = $query->map(fn (Solicitud $solicitud) => SolicitudDTO::fromModel($solicitud))
-            ->toArray();
-
         return [
             'message' => 'Solicitudes obtenidas correctamente',
-            'data' => $result,
+            'data' => SolicitudResource::collection($query),
             'meta' => [
                 'total' => $query->total(),
                 'current_page' => $query->currentPage(),
@@ -49,7 +46,7 @@ class SolicitudesRepository
     {
         return [
             'message' => 'Solicitud recuperada correctamente',
-            'data' => SolicitudDTO::fromModel($solicitud),
+            'data' => new SolicitudResource($solicitud),
         ];
     }
 
