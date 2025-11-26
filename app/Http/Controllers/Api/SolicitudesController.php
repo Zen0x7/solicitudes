@@ -59,7 +59,7 @@ class SolicitudesController extends Controller
             return response()->json(SolicitudesRepository::update($request, $solicitud));
         } catch (Throwable $e) {
             return response()->json([
-                'message' => 'Algo fallo',
+                'message' => 'Error durante la actualización de la solicitud',
                 'error_code' => $e->getCode(),
             ], 500);
         }
@@ -74,7 +74,7 @@ class SolicitudesController extends Controller
             return response()->json(SolicitudesRepository::delete($solicitud));
         } catch (Throwable $e) {
             return response()->json([
-                'message' => 'Algo fallo',
+                'message' => 'Error durante la eliminación de la solicitud',
                 'error_code' => $e->getCode(),
             ], 500);
         }
