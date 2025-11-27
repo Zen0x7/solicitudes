@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Http\Requests\Solicitudes\IndexRequest;
 use App\Http\Requests\Solicitudes\StoreRequest;
 use App\Http\Requests\Solicitudes\UpdateRequest;
 use App\Http\Resources\SolicitudResource;
@@ -9,9 +10,12 @@ use App\Models\Solicitud;
 
 class SolicitudesRepository
 {
-    public static function index()
+    public static function index(IndexRequest $request)
     {
-        $query = Solicitud::paginate();
+        $query = Solicitud::query()
+            ->when($request->query('search'), fn ($query) => $query->where('document_no', 'like', "%{$request->query('search')}%"))
+            ->orderBy($request->query('order_column', 'created_at'), $request->query('order_direction', 'desc'))
+            ->paginate(10);
 
         return [
             'message' => 'Solicitudes obtenidas correctamente',
