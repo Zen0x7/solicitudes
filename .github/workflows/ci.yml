@@ -66,6 +66,8 @@ jobs:
           yarn lint
 
       - name: Run tests
+        env:
+          LARAVEL_BYPASS_ENV_CHECK: 1
         run: |
           php artisan test --coverage --coverage-clover storage/coverage/coverage.xml
           yarn test:unit:coverage
