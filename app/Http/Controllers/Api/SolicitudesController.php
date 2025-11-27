@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Solicitudes\IndexRequest;
 use App\Http\Requests\Solicitudes\StoreRequest;
 use App\Http\Requests\Solicitudes\UpdateRequest;
 use App\Models\Solicitud;
@@ -15,10 +16,10 @@ class SolicitudesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(IndexRequest $request): JsonResponse
     {
         try {
-            return response()->json(SolicitudesRepository::index());
+            return response()->json(SolicitudesRepository::index($request));
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Error durante la obtención de solicitudes',

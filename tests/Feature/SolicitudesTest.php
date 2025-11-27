@@ -44,7 +44,7 @@ class SolicitudesTest extends TestCase
             ->assertJsonFragment([
                 'total' => 10,
                 'current_page' => 1,
-                'per_page' => 15,
+                'per_page' => 10,
                 'last_page' => 1,
                 'from' => 1,
                 'to' => 10,
