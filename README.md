@@ -10,6 +10,7 @@ Ejecute los siguientes comandos en un entorno con `composer`, `php`, `node@24` y
 ```bash
 git clone git@github.com:Zen0x7/solicitudes.git
 cd solicitudes
+cp .env.example .env
 composer install
 yarn && yarn build
 php artisan migrate --force
